@@ -2,7 +2,12 @@ import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
 
 import { BasicStockI, DetailedStockI } from "../Types";
-import { ColDef, ColGroupDef, GridApi } from "ag-grid-community";
+import {
+  ColDef,
+  ColGroupDef,
+  GridApi,
+  RowClickedEvent,
+} from "ag-grid-community";
 import React, { useEffect, useState } from "react";
 
 import { AgGridReact } from "ag-grid-react";
@@ -27,7 +32,7 @@ const DataGrid = ({ stocks, onRowClick }: Props) => {
     if (stocks.length > 0) {
       setLoading(true);
       const columns = Object.keys(stocks[0]).map((key) => ({
-        headerName: key,
+        headerName: key.charAt(0).toUpperCase() + key.slice(1),
         field: key as keyof BasicStockI | keyof DetailedStockI,
       }));
 
@@ -57,7 +62,7 @@ const DataGrid = ({ stocks, onRowClick }: Props) => {
   return (
     <div
       className="ag-theme-quartz" // applying the grid theme
-      style={{ height: 500, width: "100%" }}
+      style={{ height: "40%", width: "100%" }}
     >
       <AgGridReact
         columnDefs={
@@ -67,15 +72,9 @@ const DataGrid = ({ stocks, onRowClick }: Props) => {
           )[]
         }
         rowData={rowData}
-        onRowClicked={
-          onRowClick
-            ? (e) => {
-                if (e.data) {
-                  onRowClick(e.data);
-                }
-              }
-            : undefined
-        }
+        onRowClicked={(
+          event: RowClickedEvent<BasicStockI | DetailedStockI | undefined>
+        ) => event.data && onRowClick?.(event.data)}
         onGridReady={onGridReady}
         loadingOverlayComponent={<Loader />}
         defaultColDef={{
