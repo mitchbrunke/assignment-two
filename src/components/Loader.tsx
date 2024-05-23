@@ -10,6 +10,7 @@ const StyledLoader = styled(LoadingIcon)`
   width: 100px;
   height: 100px;
   animation: spin 2s linear infinite;
+
   @keyframes spin {
     100% {
       transform: rotate(360deg);

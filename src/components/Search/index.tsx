@@ -21,7 +21,7 @@ const SearchComponent = ({
 
   return (
     <Wrapper>
-      <Heading style={{ padding: "0rem 0rem 1rem 0.5rem" }}>
+      <Heading style={{ padding: "0rem 0rem 1rem 1rem" }}>
         Search for your next stock.
       </Heading>
       <FilterWrapper>
@@ -70,13 +70,14 @@ const Wrapper = styled.div`
   border-radius: 0.55rem;
   display: flex;
   flex-direction: column;
+  box-shadow: 0px 5px 12px -6px rgba(0, 0, 0, 0.1);
 `;
 
 const FilterWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  width: calc(100% - 1rem);
-  padding: 0 0.5rem;
+  width: calc(100% - 2rem);
+  padding: 0 1rem;
 `;
 
 const StyledInputContainer = styled.div`

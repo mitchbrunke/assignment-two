@@ -8,7 +8,7 @@ import {
   GridApi,
   RowClickedEvent,
 } from "ag-grid-community";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { AgGridReact } from "ag-grid-react";
 import Loader from "./Loader";
@@ -80,6 +80,11 @@ const DataGrid = ({ stocks, onRowClick }: Props) => {
         defaultColDef={{
           flex: 1,
           cellStyle: { textAlign: "left" },
+        }}
+        getRowStyle={(params) => {
+          if (params.node.rowIndex !== null && params.node.rowIndex % 2 === 0) {
+            return { background: "#f6f6f6" }; // change this to the color you want for every second row
+          }
         }}
       />
     </div>

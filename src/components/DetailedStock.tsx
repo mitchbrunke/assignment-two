@@ -1,8 +1,9 @@
 import { BasicStockI, DetailedStockI } from "../Types";
 import { useEffect, useState } from "react";
 
+import { AiOutlineStock } from "react-icons/ai";
 import ChartComponent from "./ChartComponent";
-import { IoLogoBitcoin } from "react-icons/io";
+import Loader from "./Loader";
 import { fetchStockByIndustry } from "../hooks/useAxios";
 import styled from "styled-components";
 import { useQuery } from "@tanstack/react-query";
@@ -41,32 +42,91 @@ const DetailedStock = ({ targetStock }: Props) => {
       setIsLoading(false);
     }
   }, [data, targetStock.symbol]);
-  if (isPending || isLoading) return <div>Loading...</div>;
+  if (isPending || isLoading)
+    return (
+      <Container>
+        <Loader />
+      </Container>
+    );
 
   if (status === "error") return <div>Error fetching data</div>;
-
-  console.debug("detailedStock", detailedStock);
 
   return (
     <Container>
       <StockCard>
-        <IoLogoBitcoin size={30} />
+        <AiOutlineStock size={30} />
         <NameSymbol>
           <StyledSymbol>{detailedStock?.symbol}</StyledSymbol>
-          <StyledKey>{detailedStock?.name}</StyledKey>
+          <StyledKey
+            isPositive={
+              Number(detailedStock?.close) > Number(detailedStock?.open)
+            }
+          >
+            {detailedStock?.name}
+          </StyledKey>
         </NameSymbol>
-        <p>{detailedStock?.open}</p>
-        <p>{detailedStock?.high}</p>
-        <p>{detailedStock?.low}</p>
-        <p>{detailedStock?.close}</p>
-        <p>{detailedStock?.volumes}</p>
+        <NameSymbol>
+          <StyledSymbol>Open</StyledSymbol>
+          <StyledKey
+            isPositive={
+              Number(detailedStock?.close) > Number(detailedStock?.open)
+            }
+          >
+            {detailedStock?.open}
+          </StyledKey>
+        </NameSymbol>
+
+        <NameSymbol>
+          <StyledSymbol>High</StyledSymbol>
+          <StyledKey
+            isPositive={
+              Number(detailedStock?.high) > Number(detailedStock?.open)
+            }
+          >
+            {detailedStock?.high}
+          </StyledKey>
+        </NameSymbol>
+
+        <NameSymbol>
+          <StyledSymbol>Low</StyledSymbol>
+          <StyledKey
+            isPositive={
+              Number(detailedStock?.low) > Number(detailedStock?.open)
+            }
+          >
+            {detailedStock?.low}
+          </StyledKey>
+        </NameSymbol>
+
+        <NameSymbol>
+          <StyledSymbol>Close</StyledSymbol>
+          <StyledKey
+            isPositive={
+              Number(detailedStock?.close) > Number(detailedStock?.open)
+            }
+          >
+            {detailedStock?.close}
+          </StyledKey>
+        </NameSymbol>
+
+        <NameSymbol>
+          <StyledSymbol>Volumes</StyledSymbol>
+          <StyledKey
+            isPositive={
+              Number(detailedStock?.close) > Number(detailedStock?.open)
+            }
+          >
+            {detailedStock?.volumes}
+          </StyledKey>
+        </NameSymbol>
+
+        <NameSymbol>
+          <StyledSymbol>Updated at:</StyledSymbol>
+          <StyledDate>{detailedStock?.timestamp}</StyledDate>
+        </NameSymbol>
       </StockCard>
+
       <ChartComponent chartStocks={detailedStocks} />
-      {/* <div>
-        <StyledHeader>
-          Last updated at: <StyledValue>{detailedStock?.timestamp}</StyledValue>
-        </StyledHeader>
-      </div> */}
     </Container>
   );
 };
@@ -85,23 +145,29 @@ const StockCard = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 0.5rem;
+  justify-content: center;
+  gap: 2.5rem;
   width: 100%;
-  border: 1px solid red;
   padding: 0.5rem 0;
 `;
 
 const NameSymbol = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
   height: 100%;
 `;
 
-const StyledSymbol = styled.p``;
+const StyledSymbol = styled.p`
+  font-size: 0.9em;
+`;
 
-const StyledKey = styled.p`
+const StyledKey = styled.p<{ isPositive?: boolean }>`
+  font-size: 0.75em;
+  color: ${({ isPositive }) => (isPositive ? "#29bf12" : "#f21b3f")};
+`;
+
+const StyledDate = styled.p`
   font-size: 0.75em;
 `;
 

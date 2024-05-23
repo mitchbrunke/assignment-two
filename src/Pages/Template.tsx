@@ -31,7 +31,6 @@ export default Template;
 const PageWrapper = styled.div`
   width: 100vw;
   height: 100vh;
-  overflow-y: scroll;
   overflow-x: hidden;
 `;
 
@@ -46,6 +45,7 @@ const StyledTopBarWrapper = styled.div`
   border-bottom: 1px solid #e5e5e5;
   & h3 {
     padding-left: 1.5rem;
+    color: #9b51e0;
   }
 `;
 
@@ -53,9 +53,9 @@ const ContentWrapper = styled.div`
   display: flex;
   flex: 1;
   justify-content: center;
-  background-color: rgba(244, 247, 250, 1);
+  /* background-color: rgba(244, 247, 250, 1); */
+  background-image: linear-gradient(360deg, #ffffff 35%, #f0f0f0 100%);
   height: 100%;
-  overflow-y: scroll;
 `;
 
 const AvatarRoot = styled(Avatar.Root)`
@@ -70,6 +70,7 @@ const AvatarRoot = styled(Avatar.Root)`
   border-radius: 100%;
   margin-right: 1rem;
   background-color: var(--black-a3);
+  border: 2px solid #9b51e0;
 `;
 
 const AvatarImage = styled(Avatar.Image)`
