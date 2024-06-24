@@ -63,11 +63,11 @@ const Home = () => {
         onRowClick={(e) => setTargetStock(e as DetailedStockI)}
       />
 
-      {targetStock ? (
+      {/* {targetStock ? (
         <DetailedStock targetStock={targetStock} />
       ) : (
         <EmptyState>Select Stock to see detailed view.</EmptyState>
-      )}
+      )} */}
     </PageWrapper>
   );
 };
