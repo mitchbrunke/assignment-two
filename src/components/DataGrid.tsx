@@ -23,8 +23,14 @@ type HeaderRowI = ColDef & {
   field: keyof BasicStockI | keyof DetailedStockI;
 };
 
+const isBasicStock = (
+  stock: BasicStockI | DetailedStockI
+): stock is BasicStockI => {
+  return "close" in stock;
+};
+
 const DataGrid = ({ stocks, onRowClick }: Props) => {
-  const [rowData, setRowData] = useState<BasicStockI[]>([]);
+  const [rowData, setRowData] = useState<BasicStockI[] | DetailedStockI[]>([]);
   const [columnDefs, setColumnDefs] = useState<HeaderRowI[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -37,8 +43,9 @@ const DataGrid = ({ stocks, onRowClick }: Props) => {
       }));
 
       if ("timestamp" in stocks[0]) {
-        columns.splice(0, 1);
+        columns.splice(1, 3);
       }
+
       setColumnDefs(columns);
       setRowData(stocks);
       setLoading(false);
@@ -62,7 +69,7 @@ const DataGrid = ({ stocks, onRowClick }: Props) => {
   return (
     <div
       className="ag-theme-quartz" // applying the grid theme
-      style={{ height: "40%", width: "100%" }}
+      style={{ height: "100%", width: "100%" }}
     >
       <AgGridReact
         columnDefs={

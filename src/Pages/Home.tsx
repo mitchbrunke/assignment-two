@@ -1,8 +1,10 @@
 import { BasicStockI, DetailedStockI } from "../Types";
 import { useEffect, useState } from "react";
 
+import { Button } from "@radix-ui/themes";
 import DataGrid from "../components/DataGrid";
 import DetailedStock from "../components/DetailedStock";
+import DialogDemo from "../components/Dialog";
 import Loader from "../components/Loader";
 import SearchComponent from "../components/Search";
 import { fetchAllStocks } from "../hooks/useAxios";
@@ -59,16 +61,18 @@ const Home = () => {
         setIndustryFilter={setIndustryFilter}
       />
 
-      <DataGrid
-        stocks={filteredStocks}
-        onRowClick={(e) => setTargetStock(e as DetailedStockI)}
-      />
+      <DataGridContainer>
+        <DataGrid
+          stocks={filteredStocks}
+          onRowClick={(e) => setTargetStock(e as DetailedStockI)}
+        />
+      </DataGridContainer>
 
-      {/* {targetStock ? (
+      {targetStock ? (
         <DetailedStock targetStock={targetStock} />
       ) : (
         <EmptyState>Select Stock to see detailed view.</EmptyState>
-      )} */}
+      )}
     </PageWrapper>
   );
 };
@@ -76,6 +80,10 @@ const Home = () => {
 const PageWrapper = styled.div`
   width: 80%;
   margin: 0 auto;
+`;
+
+const DataGridContainer = styled.div`
+  height: 50vh;
 `;
 
 const EmptyState = styled.div`

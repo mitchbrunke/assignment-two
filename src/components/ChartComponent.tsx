@@ -42,32 +42,11 @@ const ChartComponent = ({ chartStocks }: Props) => {
     labels: chartStocks.map((stock) => new Date(stock.timestamp).toISOString()),
     datasets: [
       {
-        label: "Open",
-        data: chartStocks.map((stock) => stock.open),
-        fill: false,
-        backgroundColor: "#00bbf925",
-        borderColor: "#00bbf9",
-      },
-      {
         label: "Close",
         data: chartStocks.map((stock) => stock.close),
         fill: false,
         backgroundColor: "#9a5de52f",
         borderColor: "#9b5de5",
-      },
-      {
-        label: "High",
-        data: chartStocks.map((stock) => stock.high),
-        fill: false,
-        backgroundColor: "rgba(75,192,192,0.2)",
-        borderColor: "rgba(75,192,192,1)",
-      },
-      {
-        label: "Low",
-        data: chartStocks.map((stock) => stock.low),
-        fill: false,
-        backgroundColor: "#fb8b242F",
-        borderColor: "#fb8b24",
       },
     ],
   };
