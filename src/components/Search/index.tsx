@@ -27,7 +27,7 @@ const SearchComponent = ({
       <FilterWrapper>
         <StyledInputContainer>
           <StyledInputArea>
-            <StyledLabel htmlFor="search">Company Name</StyledLabel>
+            <StyledLabel htmlFor="search">Company Name or Symbol</StyledLabel>
             <StyledInput
               name="search"
               type="search"

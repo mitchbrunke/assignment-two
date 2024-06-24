@@ -39,8 +39,9 @@ const Home = () => {
   useEffect(() => {
     const filteredStocks = stocks.filter(
       (stock: BasicStockI) =>
-        stock.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
-        (industryFilter === "All" || stock.industry === industryFilter)
+        stock.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (stock.symbol.toLowerCase().includes(searchTerm.toLowerCase()) &&
+          (industryFilter === "All" || stock.industry === industryFilter))
     );
     setFilteredStocks(filteredStocks);
     setTargetStock(null);
